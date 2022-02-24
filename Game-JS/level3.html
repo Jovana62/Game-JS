@@ -1,0 +1,134 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<title>My Game</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+  <link rel="stylesheet" href="style.css">
+	<script src="main.js"></script>
+
+
+</head>
+
+<body>
+    <br>
+    <h2><center>Поврзи ги соодветните слики со нивните сенки</center></h2>
+    <br>
+    <h2><center>Level 3</center></h2>
+
+	  <section class="draggable-elements">
+    <i class="fas fa-cat draggable" draggable="true" style="color: #ff6384;" id="cat"></i>
+    <i class="fas fa-dog draggable" draggable="true" style="color: #36a2eb;" id="dog"></i>
+    <i class="fas fa-dove draggable" draggable="true" style="color: #ffce56;" id="dove"></i>
+    <i class="fas fa-fish draggable" draggable="true" style="color: #9966ff;" id="fish"></i>
+    <i class="fas fa-frog draggable" draggable="true" style="color: #4bc0c0;" id="frog"></i>
+    <i class="fas fa-horse draggable" draggable="true" style="color: #333333;" id="horse"></i>
+    <i class="fas fa-hippo draggable" draggable="true" style="color: #ff9f40;" id="hippo"></i>
+    <i class="fas fa-spider draggable" draggable="true" style="color: #ff99cc;" id="spider"></i>
+  </section>
+  <section class="droppable-elements">
+    <div class="fas fa-frog droppable" data-draggable-id="frog"><span></span></div>
+    <div class="fas fa-dove droppable" data-draggable-id="dove"><span></span></div>
+    <div class="fas fa-cat droppable" data-draggable-id="cat"><span></span></div>
+    <div class="fas fa-fish droppable" data-draggable-id="fish"><span></span></div>
+    <div class="fas fa-dog droppable" data-draggable-id="dog"><span></span></div>
+    <div class="fas fa-spider droppable" data-draggable-id="spider"><span></span></div>
+    <div class="fas fa-horse droppable" data-draggable-id="horse"><span></span></div>
+    <div class="fas fa-hippo droppable" data-draggable-id="hippo"><span></span></div>
+  </section>
+
+  <form method="post" action="">
+    <center>
+      <button class="button" type= "button" id ="next" onclick="submit(event);" >Следно</button>
+    </center>
+  </form>
+  <br><br>
+  
+  <script>
+    document.body.style.backgroundImage = "url('./assets/back.jpg')"; 
+    const draggableElements = document.querySelectorAll(".draggable");
+    const droppableElements = document.querySelectorAll(".droppable");
+
+draggableElements.forEach(elem => {
+  elem.addEventListener("dragstart", dragStart); 
+});
+
+droppableElements.forEach(elem => {
+  elem.addEventListener("dragenter", dragEnter); 
+  elem.addEventListener("dragover", dragOver); 
+  elem.addEventListener("dragleave", dragLeave); 
+  elem.addEventListener("drop", drop); 
+});
+
+// функции за зимање на објект (слика) и спуштање на објект врз објект
+
+//при зимање објект
+
+function dragStart(event) {
+  event.dataTransfer.setData("text", event.target.id); 
+}
+
+//при спуштање
+
+function dragEnter(event) {
+  if(!event.target.classList.contains("dropped")) {
+    event.target.classList.add("droppable-hover");
+  }
+}
+
+function dragOver(event) {
+  if(!event.target.classList.contains("dropped")) {
+    event.preventDefault(); 
+  }
+}
+
+function dragLeave(event) {
+  if(!event.target.classList.contains("dropped")) {
+    event.target.classList.remove("droppable-hover");
+  }
+}
+
+function drop(event) {
+  event.preventDefault(); 
+  event.target.classList.remove("droppable-hover");
+  const draggableElementData = event.dataTransfer.getData("text"); 
+  const droppableElementData = event.target.getAttribute("data-draggable-id");
+  const isCorrectMatching = draggableElementData === droppableElementData;
+  if(isCorrectMatching) {
+    const draggableElement = document.getElementById(draggableElementData);
+    event.target.classList.add("dropped");
+    event.target.style.backgroundColor = window.getComputedStyle(draggableElement).color;
+    draggableElement.classList.add("dragged");
+    draggableElement.setAttribute("draggable", "false");
+  }
+}
+document.getElementById("next").onclick = function() {
+  myFunction();
+}
+function myFunction(){
+  location.replace("level4.html");
+}
+
+var mySong = document.getElementById("mySong");
+		var icon = document.getElementById("icon");
+		
+		icon.innerHTML = "&#xf6a9";	// за да се прикаже mute иконката горе десно
+		icon.onclick = function(){
+			
+			//mySong.play();
+			if (mySong.paused) {
+			mySong.play();
+			icon.innerHTML = "&#xf6a9";	// музичка икона_1
+			}
+			else {
+			mySong.pause();
+			icon.innerHTML = "&#xf028";	// музичка икона_2
+			}
+		}
+  </script>
+</body>
+
+</html>

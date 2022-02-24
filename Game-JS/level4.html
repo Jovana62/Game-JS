@@ -1,0 +1,56 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+	<title>My Game</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+  <link rel="stylesheet" href="style.css">
+	<script src="main.js"></script>
+
+
+</head>
+
+<body>
+    <br><br><br>
+    <h2><center>КРАЈ</center></h2>
+    
+<br><br><br><br>
+  <form method="post" action="">
+    <center>
+      <button class="button" type= "button" id ="next" onclick="submit(event);" >Врати се на почеток</button>
+    </center>
+  </form>
+  <br><br>
+  
+  <script>
+    document.body.style.backgroundImage = "url('./assets/back.jpg')"; 
+document.getElementById("next").onclick = function() {
+  myFunction();
+}
+function myFunction(){
+  location.replace("index.html");
+}
+
+var mySong = document.getElementById("mySong");
+		var icon = document.getElementById("icon");
+		
+		icon.innerHTML = "&#xf6a9";	// за да се прикаже mute иконката горе десно
+		icon.onclick = function(){
+			
+			//mySong.play();
+			if (mySong.paused) {
+			mySong.play();
+			icon.innerHTML = "&#xf6a9";	// музичка икона_1
+			}
+			else {
+			mySong.pause();
+			icon.innerHTML = "&#xf028";	// музичка икона_2
+			}
+		}
+  </script>
+</body>
+
+</html>
